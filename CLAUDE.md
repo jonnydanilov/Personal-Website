@@ -53,6 +53,8 @@ deployed as a static site on GitHub Pages, and the repository is **public**.
   animations, the contact form's front-end-only behavior).
 - No inline `<style>` or `<script>` blocks in `index.html` — keep concerns
   separated across the three files.
+- `README.md` — project overview for anyone visiting the repo (not for
+  Claude session instructions — that's what this file is for).
 
 ## Placeholders
 
