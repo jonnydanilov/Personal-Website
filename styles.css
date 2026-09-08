@@ -421,6 +421,82 @@ img {
 }
 
 /* =========================================================================
+   EXPERIENCE
+   A single work-experience entry styled like a compact resume line: role,
+   company, and dates in the header row, with a short bullet list below.
+   Shares the About section's background so the two read as one "about
+   Jonathan" block before the Projects/Skills/Contact zebra pattern resumes.
+   ========================================================================= */
+.experience {
+  padding: 120px 0;
+  background: var(--color-bg-alt);
+}
+
+.experience-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 32px;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.experience-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.experience-role {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.experience-company {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.experience-dates {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.experience-points {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.experience-points li {
+  position: relative;
+  padding-left: 20px;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.experience-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* =========================================================================
    PROJECTS
    Cards laid out on an auto-fitting grid so it reflows cleanly from one
    column on mobile up to three on wide screens without a media query.
@@ -497,6 +573,44 @@ img {
   border-radius: 6px;
 }
 
+/* Small thumbnail pair showing real Excel output for a private-repo project;
+   each thumbnail links out to the full-size image in a new tab. */
+.project-preview-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.project-preview {
+  display: flex;
+  gap: 10px;
+}
+
+.project-preview-link {
+  flex: 1;
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.project-preview-link:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+.project-preview-link img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  object-position: top;
+}
+
 .project-links {
   display: flex;
   flex-wrap: wrap;
@@ -521,11 +635,20 @@ img {
   font-style: italic;
 }
 
+/* One-line footnote under the grid explaining why most repos aren't linked */
+.projects-note {
+  margin-top: 40px;
+  font-size: 0.85rem;
+  color: var(--color-text-faint);
+  font-style: italic;
+  max-width: 720px;
+}
+
 /* Small, muted footnote below the projects grid explaining where AI tools fit
    into the workflow. Kept visually quiet (faint color, thin top border, no
    card/background) so it reads as a methodology note, not a warning. */
 .ai-disclosure {
-  margin-top: 48px;
+  margin-top: 24px;
   padding-top: 24px;
   border-top: 1px solid var(--color-border);
   max-width: 720px;
@@ -745,9 +868,14 @@ img {
   }
 
   .about,
+  .experience,
   .projects,
   .skills,
   .contact {
     padding: 80px 0;
+  }
+
+  .experience-header {
+    flex-direction: column;
   }
 }
