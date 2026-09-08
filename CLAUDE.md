@@ -42,6 +42,11 @@ deployed as a static site on GitHub Pages, and the repository is **public**.
    bug in an existing function) don't need a check-in.
 4. **Stay framework-free.** Don't introduce React, Vue, Tailwind, bundlers,
    or package managers unless Jonathan explicitly asks for that change.
+5. **Never commit or push without being told to, each time.** Edit files
+   and leave changes staged/unstaged as needed, but don't run `git commit`
+   or `git push` until Jonathan explicitly says so for that specific set of
+   changes. An earlier "commit and push" doesn't carry forward to later
+   edits in the same or a future session — ask again.
 
 ## File structure
 

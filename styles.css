@@ -521,12 +521,53 @@ img {
   font-style: italic;
 }
 
+/* Small, muted footnote below the projects grid explaining where AI tools fit
+   into the workflow. Kept visually quiet (faint color, thin top border, no
+   card/background) so it reads as a methodology note, not a warning. */
+.ai-disclosure {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+  max-width: 720px;
+}
+
+.ai-disclosure-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.ai-disclosure-text {
+  font-size: 0.85rem;
+  color: var(--color-text-faint);
+  line-height: 1.6;
+}
+
 /* =========================================================================
    SKILLS
    ========================================================================= */
 .skills {
   padding: 120px 0;
   background: var(--color-bg-alt);
+}
+
+/* Each category (Languages, Data & Analysis, etc.) stacked vertically */
+.skills-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.skills-group-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
 }
 
 .skills-grid {

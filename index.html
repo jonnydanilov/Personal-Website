@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jonathan Danilov | Portfolio</title>
-  <meta name="description" content="Jonathan Danilov, a CIS student at Baruch College's Zicklin School of Business, building toward software engineering and data through automation projects, Python systems, and full-stack web apps." />
+  <meta name="description" content="Jonathan Danilov, a CIS student at Baruch College's Zicklin School of Business building data-driven Python applications, automation systems, and analytics tools with real-world data." />
 
   <!-- Simple inline SVG favicon (initials "JD") so the browser tab doesn't request a missing favicon.ico -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Ctext x='32' y='42' font-family='Arial, sans-serif' font-size='26' font-weight='700' fill='%2364ffda' text-anchor='middle'%3EJD%3C/text%3E%3C/svg%3E" />
@@ -30,6 +30,9 @@
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#skills">Skills</a></li>
+        <!-- Placeholder: points at resume.pdf, which doesn't exist in the repo yet.
+             Add a resume.pdf file to the project root to make this link work. -->
+        <li><a href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
         <li><a href="#contact" class="nav-cta">Contact</a></li>
       </ul>
 
@@ -49,13 +52,15 @@
         <p class="hero-eyebrow reveal">Hi, I'm</p>
         <h1 class="hero-name reveal">Jonathan Danilov</h1>
         <p class="hero-tagline reveal">
-          CIS student building toward software engineering and data,
-          currently turning automation ideas into shipped Python and full‑stack projects.
+          CIS student at Baruch College building data-driven Python applications,
+          automation systems, and analytics tools with real-world data.
         </p>
 
         <div class="hero-actions reveal">
           <a href="#projects" class="btn btn-primary">View Projects</a>
           <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+          <!-- Placeholder: points at resume.pdf, which doesn't exist in the repo yet -->
+          <a href="resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Download Resume</a>
         </div>
 
         <div class="hero-socials reveal">
@@ -91,14 +96,16 @@
 
         <div class="about-grid">
           <p class="about-bio reveal">
-            I'm a CIS major (BBA, with a Computer Science minor) at Baruch College's
-            Zicklin School of Business, graduating in June 2028. Alongside school, I work
-            as a Senior Administrator of Operations &amp; Automation, where I build
-            Python automation systems and lead a team of 10 administrators.
+            I'm pursuing a BBA in Computer Information Systems with a minor in Computer
+            Science at Baruch College's Zicklin School of Business, graduating in June
+            2028. Alongside school, I work as a Senior Administrator of Operations &amp;
+            Automation, where I build Python automation systems and lead a team of 10
+            administrators.
             <br /><br />
-            Outside of that role, I spend my time developing side projects such as web
-            apps, automation tools, and Discord bots that handle live data, as I work
-            towards a career in Data Science.
+            Outside of work and school, I build data-driven applications and automation
+            tools using live APIs and real-world datasets. I'm especially interested in
+            using Python, data analysis, and automation to solve practical problems as I
+            work toward a career in Data Science.
           </p>
 
           <div class="about-facts reveal">
@@ -107,12 +114,16 @@
               <span class="fact-value">B.B.A. in CIS, C.S. Minor<br />Zicklin School of Business, Baruch College</span>
             </div>
             <div class="fact-card">
+              <span class="fact-label">Coursework</span>
+              <span class="fact-value">Introduction to Python, Object‑Oriented Programming (C++), Programming for Analytics</span>
+            </div>
+            <div class="fact-card">
               <span class="fact-label">Graduating</span>
               <span class="fact-value">June 2028</span>
             </div>
             <div class="fact-card">
               <span class="fact-label">Current Role</span>
-              <span class="fact-value">Sr. Administrator, Operations &amp; Automation, leading a team of 10</span>
+              <span class="fact-value">Senior Administrator, Operations &amp; Automation at SDP Enterprises, leading a team of 10 administrators</span>
             </div>
             <div class="fact-card">
               <span class="fact-label">Goal</span>
@@ -136,9 +147,10 @@
             <div class="project-card-body">
               <h3 class="project-title">Price Tracker</h3>
               <p class="project-desc">
-                A full‑stack price‑monitoring app: scrapes product pages on a schedule,
-                stores price history, and charts trends over time. Users sign in with
-                Google OAuth to track their own watchlist.
+                Full‑stack price‑monitoring application that schedules product‑page
+                scrapes, stores historical prices in PostgreSQL, and visualizes price
+                trends over time. Google OAuth provides authenticated, user‑specific
+                watchlists.
               </p>
               <ul class="tech-tags">
                 <li>Flask</li>
@@ -161,15 +173,16 @@
             <div class="project-card-body">
               <h3 class="project-title">MLB Home Run Tracker</h3>
               <p class="project-desc">
-                A home‑run tracking system with a live website and a companion Discord
-                bot that polls live MLB game data every 15 seconds and pushes real‑time
-                alerts to a paid subscriber base.
+                Architected and deployed a live MLB home‑run alerting system with a
+                web dashboard and companion Discord bot. The backend polls live game
+                data every 15 seconds, detects new home runs, and delivers real‑time
+                alerts to paying subscribers.
               </p>
               <ul class="tech-tags">
                 <li>Python</li>
                 <li>Discord API</li>
                 <li>Live Data Polling</li>
-                <li>Subscriptions</li>
+                <li>Dashboard</li>
                 <li>Railway</li>
               </ul>
             </div>
@@ -184,14 +197,11 @@
             <div class="project-card-body">
               <h3 class="project-title">MLB Matchup Analytics Toolkit</h3>
               <p class="project-desc">
-                A two‑part daily research toolkit: the Batter Matchup Analyzer
-                cross‑references a batter list against today's projected starters and
-                pulls each batter's career stats vs that exact pitcher and their splits
-                against the pitcher's throwing hand from the MLB Stats API; the Pitcher
-                Performance Reporter pulls each starter's home/away ERA from the MLB
-                Stats API and barrel rate from Baseball Savant. Both write color‑coded
-                results straight to a formatted Excel file and copy them to the
-                clipboard for quick pasting.
+                Architected a two‑part MLB research toolkit that combines MLB Stats
+                API and Baseball Savant data to analyze batter‑pitcher matchups and
+                starting‑pitcher performance. The tools calculate historical matchup
+                statistics, handedness splits, home/away ERA, and barrel rate, then
+                export color‑coded results to Excel for rapid daily analysis.
               </p>
               <ul class="tech-tags">
                 <li>Python</li>
@@ -211,8 +221,9 @@
             <div class="project-card-body">
               <h3 class="project-title">Resubscriber Discord Bot</h3>
               <p class="project-desc">
-                A Discord bot that detects lapsed or inactive subscribers and runs
-                automated win‑back messaging to re‑engage them and drive resubscriptions.
+                Architected and deployed a Discord automation bot that identifies
+                lapsed or inactive subscribers and sends automated win‑back messages
+                designed to re‑engage former customers and encourage resubscriptions.
               </p>
               <ul class="tech-tags">
                 <li>Python</li>
@@ -231,9 +242,9 @@
             <div class="project-card-body">
               <h3 class="project-title">Job Application Tracker</h3>
               <p class="project-desc">
-                A dashboard that logs job applications and automatically detects status
-                changes by parsing Gmail, so there's no more manually updating a
-                spreadsheet after every "thank you for applying" email.
+                In development: a dashboard that logs job applications and uses the
+                Gmail API to detect application‑status changes automatically, reducing
+                the need for manual spreadsheet updates.
               </p>
               <ul class="tech-tags">
                 <li>Python</li>
@@ -248,6 +259,19 @@
           </article>
 
         </div>
+
+        <!-- Subtle development-methodology note: how AI tools fit into my workflow
+             without overstating or understating my own role in these projects. -->
+        <div class="ai-disclosure reveal">
+          <p class="ai-disclosure-title">AI-Assisted Development</p>
+          <p class="ai-disclosure-text">
+            For the MLB Home Run Tracker, MLB Matchup Analytics Toolkit, and
+            Resubscriber Discord Bot, I use ChatGPT and Claude Code to accelerate
+            backend implementation and iteration. I own the project concepts, system
+            architecture, component integration, testing, debugging, and deployment,
+            and I validate the behavior of the systems I ship.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -257,18 +281,46 @@
         <p class="section-eyebrow reveal">Skills</p>
         <h2 class="section-title reveal">Tools I work with</h2>
 
-        <ul class="skills-grid reveal">
-          <li class="skill-pill">Python</li>
-          <li class="skill-pill">Flask</li>
-          <li class="skill-pill">PostgreSQL</li>
-          <li class="skill-pill">SQL</li>
-          <li class="skill-pill">React / Next.js</li>
-          <li class="skill-pill">Web Scraping</li>
-          <li class="skill-pill">Automation</li>
-          <li class="skill-pill">API Integration</li>
-          <li class="skill-pill">Discord Bot Development</li>
-          <li class="skill-pill">CIS Coursework</li>
-        </ul>
+        <!-- Skills grouped by category instead of one flat list, so it reads more
+             like a technical profile than a generic tag cloud. -->
+        <div class="skills-groups reveal">
+          <div class="skills-group">
+            <h3 class="skills-group-title">Languages</h3>
+            <ul class="skills-grid">
+              <li class="skill-pill">Python</li>
+              <li class="skill-pill">C++</li>
+              <li class="skill-pill">SQL</li>
+              <li class="skill-pill">JavaScript</li>
+              <li class="skill-pill">HTML/CSS</li>
+            </ul>
+          </div>
+          <div class="skills-group">
+            <h3 class="skills-group-title">Data &amp; Analysis</h3>
+            <ul class="skills-grid">
+              <li class="skill-pill">pandas</li>
+              <li class="skill-pill">PostgreSQL</li>
+              <li class="skill-pill">openpyxl</li>
+              <li class="skill-pill">pybaseball</li>
+            </ul>
+          </div>
+          <div class="skills-group">
+            <h3 class="skills-group-title">Development</h3>
+            <ul class="skills-grid">
+              <li class="skill-pill">Flask</li>
+              <li class="skill-pill">API Integration</li>
+              <li class="skill-pill">Web Scraping</li>
+              <li class="skill-pill">Automation</li>
+              <li class="skill-pill">Discord Bot Development</li>
+            </ul>
+          </div>
+          <div class="skills-group">
+            <h3 class="skills-group-title">Tools</h3>
+            <ul class="skills-grid">
+              <li class="skill-pill">Git/GitHub</li>
+              <li class="skill-pill">Railway</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -279,8 +331,8 @@
           <p class="section-eyebrow">Contact</p>
           <h2 class="section-title">Let's talk</h2>
           <p class="contact-copy">
-            Open to Data Science and Engineering conversations, collaboration,
-            or just a chat about a project above.
+            Open to Data Science conversations, collaboration, or a chat about
+            any of the projects above.
           </p>
 
           <div class="contact-links">
