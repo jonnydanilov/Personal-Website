@@ -1,7 +1,7 @@
 /* =========================================================================
    RESET & BASE
    A minimal reset so margins/padding/box-sizing behave predictably across
-   browsers, then base typography and the dark color theme.
+   browsers, then base typography and the color system.
    ========================================================================= */
 
 * {
@@ -10,29 +10,43 @@
   box-sizing: border-box;
 }
 
-/* Theme colors as CSS variables (custom properties) — change a value here
-   and it updates everywhere it's used. Dark mode is the only/default theme. */
+/* -------------------------------------------------------------------------
+   DESIGN TOKENS — Knicks-inspired orange/blue on deep navy and warm cream.
+   Blue is the structural/accent color; orange is reserved for emphasis,
+   numbers, highlights and active states. Text-color rules below are chosen
+   to hold WCAG AA contrast on both the dark and light sections:
+     - on dark (navy) sections: body text is cream, links/accents are
+       --blue-bright, emphasis is --orange (all pass 4.5:1+ on navy).
+     - on light (cream) sections: body text is navy, links/accents are
+       --blue (passes 4.5:1 on cream), and orange is used only as a filled
+       chip background (with navy text) or a purely decorative rule, because
+       orange text alone does not hold contrast on cream.
+   ------------------------------------------------------------------------- */
 :root {
-  --color-bg: #0a0e14;
-  --color-bg-alt: #0f1520;
-  --color-surface: #131a26;
-  --color-surface-hover: #182233;
-  --color-border: #232d3d;
+  --navy: #07111f;
+  --navy-soft: #102138;
+  --cream: #f5f1e8;
+  --cream-soft: #eae2cd;
 
-  --color-text: #e6edf3;
-  --color-text-muted: #93a1b5;
-  --color-text-faint: #5b6b82;
+  --blue: #006bb6;
+  --blue-bright: #5aaee0;
+  --orange: #f58426;
 
-  --color-accent: #64ffda;
-  --color-accent-dim: #64ffda1a;
-  --color-accent-strong: #4fd6b8;
+  --line-on-dark: rgba(245, 241, 232, 0.18);
+  --line-on-dark-soft: rgba(245, 241, 232, 0.1);
+  --line-on-light: rgba(7, 17, 31, 0.18);
+  --line-on-light-soft: rgba(7, 17, 31, 0.1);
 
+  --muted-on-dark: rgba(245, 241, 232, 0.68);
+  --muted-on-light: rgba(7, 17, 31, 0.68);
+
+  --font-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 
-  --max-width: 1120px;
-  --radius: 14px;
-  --transition: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+  --max-width: 1280px;
+  --edge: clamp(20px, 5vw, 56px);
+  --transition: 180ms ease;
 }
 
 html {
@@ -40,11 +54,13 @@ html {
 }
 
 body {
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--cream);
+  color: var(--navy);
   font-family: var(--font-body);
   line-height: 1.6;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a {
@@ -61,140 +77,188 @@ img {
   display: block;
 }
 
+button {
+  font: inherit;
+}
+
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 var(--edge);
 }
 
-/* Shared "section label + heading" pattern used above every section */
-.section-eyebrow {
+/* Respect reduced-motion preferences: strip transitions/animations globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   SECTION THEME UTILITIES
+   Sections alternate dark navy and light cream, like facing pages of a
+   printed spread, instead of one flat dark theme throughout.
+   ------------------------------------------------------------------------- */
+.hero,
+.experience,
+.skills,
+.site-footer {
+  background: var(--navy);
+  color: var(--cream);
+}
+
+.about,
+.projects,
+.contact {
+  background: var(--cream);
+  color: var(--navy);
+}
+
+/* -------------------------------------------------------------------------
+   SHARED SECTION HEADER: large index number + title + rule.
+   Used above About / Experience / Projects / Skills / Contact.
+   ------------------------------------------------------------------------- */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding-bottom: 20px;
+  margin-bottom: 56px;
+  border-bottom: 3px solid var(--orange);
+}
+
+.section-num {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--color-accent);
-  letter-spacing: 0.05em;
-  margin-bottom: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.hero .section-num,
+.experience .section-num,
+.skills .section-num,
+.site-footer .section-num {
+  color: var(--blue-bright);
 }
 
 .section-title {
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: 700;
-  margin-bottom: 40px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  line-height: 1;
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-on-light);
+}
+
+.experience .mono-label,
+.hero .mono-label {
+  color: var(--muted-on-dark);
 }
 
 /* =========================================================================
-   SCROLL-REVEAL ANIMATION
-   Elements start slightly lower and transparent; script.js adds ".is-visible"
-   via IntersectionObserver as each one enters the viewport, which triggers
-   this transition. Keeps first paint calm instead of everything popping in.
+   MASTHEAD / NAVIGATION
+   A persistent dark nameplate bar (like a newspaper masthead) rather than a
+   translucent floating nav that changes on scroll.
    ========================================================================= */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 700ms ease, transform 700ms ease;
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* =========================================================================
-   SCROLL PROGRESS BAR
-   A thin fixed bar at the very top whose width script.js updates based on
-   how far down the page the visitor has scrolled.
-   ========================================================================= */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-strong));
-  z-index: 1000;
-  transition: width 100ms ease-out;
-}
-
-/* =========================================================================
-   HEADER / NAVIGATION
-   Sticky bar that gains a background + shadow once the page is scrolled
-   (class toggled by script.js) so it stays legible over the hero content.
-   ========================================================================= */
-.site-header {
+.masthead {
   position: sticky;
   top: 0;
   z-index: 900;
-  padding: 20px 0;
-  transition: background var(--transition), box-shadow var(--transition), padding var(--transition);
+  background: var(--navy);
+  border-bottom: 1px solid var(--line-on-dark);
 }
 
-.site-header.is-scrolled {
-  background: rgba(10, 14, 20, 0.85);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 1px 0 var(--color-border);
-  padding: 14px 0;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-logo {
-  font-family: var(--font-mono);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.nav-logo-dot {
-  color: var(--color-accent);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-
-.nav-links a {
-  font-size: 0.95rem;
-  color: var(--color-text-muted);
-  transition: color var(--transition);
+.masthead-inner {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 18px var(--edge);
+  max-width: var(--max-width);
 }
 
-.nav-links a:hover {
-  color: var(--color-text);
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--cream);
+  letter-spacing: 0.02em;
 }
 
-/* Animated underline that grows from the left on hover */
-.nav-links li:not(:last-child) a::after {
+.brand-mark {
+  color: var(--orange);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-right: auto;
+}
+
+.site-nav a {
+  position: relative;
+  font-size: 0.92rem;
+  color: var(--muted-on-dark);
+  padding-bottom: 4px;
+  transition: color var(--transition);
+}
+
+.site-nav a::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -4px;
+  bottom: -2px;
   width: 0%;
-  height: 1.5px;
-  background: var(--color-accent);
+  height: 2px;
+  background: var(--orange);
   transition: width var(--transition);
 }
 
-.nav-links li:not(:last-child) a:hover::after {
+.site-nav a:hover,
+.site-nav a.is-active {
+  color: var(--cream);
+}
+
+.site-nav a:hover::after,
+.site-nav a.is-active::after {
   width: 100%;
 }
 
-.nav-cta {
-  border: 1px solid var(--color-accent);
-  color: var(--color-accent) !important;
-  padding: 8px 16px;
-  border-radius: 8px;
-  transition: background var(--transition), color var(--transition);
+.nav-contact {
+  border: 1px solid var(--blue-bright);
+  padding: 7px 14px;
+  color: var(--cream) !important;
 }
 
-.nav-cta:hover {
-  background: var(--color-accent-dim);
+.nav-contact::after {
+  display: none;
+}
+
+.nav-contact:hover {
+  background: var(--blue-bright);
+  color: var(--navy) !important;
+}
+
+.masthead-locale {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted-on-dark);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 /* Hamburger button — hidden on desktop, shown via media query on mobile */
@@ -209,13 +273,12 @@ img {
 }
 
 .nav-toggle-bar {
-  width: 24px;
+  width: 22px;
   height: 2px;
-  background: var(--color-text);
+  background: var(--cream);
   transition: transform var(--transition), opacity var(--transition);
 }
 
-/* When the menu is open, morph the three bars into an "X" */
 .nav-toggle.is-open .nav-toggle-bar:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
@@ -228,261 +291,285 @@ img {
 
 /* =========================================================================
    BUTTONS
+   Square-cornered, thin-bordered — no pill shapes, no heavy shadows.
    ========================================================================= */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 13px 26px;
-  border-radius: 8px;
+  padding: 13px 24px;
   font-weight: 600;
-  font-size: 0.95rem;
-  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
-  border: 1px solid transparent;
+  font-size: 0.92rem;
+  border: 1.5px solid transparent;
   cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
 }
 
-.btn-primary {
-  background: var(--color-accent);
-  color: #04121a;
+.btn-solid {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: var(--navy);
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px var(--color-accent-dim);
+.btn-solid:hover {
+  background: transparent;
+  color: var(--orange);
 }
 
-.btn-ghost {
-  border-color: var(--color-border);
-  color: var(--color-text);
+.about .btn-solid:hover,
+.contact .btn-solid:hover {
+  color: var(--navy);
+  border-color: var(--navy);
+  background: transparent;
 }
 
-.btn-ghost:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  transform: translateY(-2px);
+.btn-outline {
+  border-color: var(--line-on-dark);
+  color: var(--cream);
+}
+
+.btn-outline:hover {
+  border-color: var(--blue-bright);
+  color: var(--blue-bright);
 }
 
 /* =========================================================================
    HERO
-   Full-height intro section with a soft decorative glow behind the text
-   (pure CSS radial gradient, no image) to avoid a flat "template" look.
+   Asymmetric, left-aligned editorial composition. The name is set in the
+   display typeface at a very large size; no centered stack, no glow blob.
    ========================================================================= */
 .hero {
-  position: relative;
-  min-height: 100svh;
+  padding: 64px 0 88px;
+  border-left: 6px solid var(--orange);
+}
+
+.hero-grid {
+  border-left: 1px solid var(--line-on-dark);
+  padding-left: clamp(20px, 4vw, 40px);
+}
+
+.hero-tags {
   display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.hero-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 700px;
-  height: 700px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, var(--color-accent-dim) 0%, transparent 65%);
-  filter: blur(10px);
-  pointer-events: none;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-}
-
-.hero-eyebrow {
+  gap: 28px;
+  flex-wrap: wrap;
   font-family: var(--font-mono);
-  color: var(--color-accent);
-  font-size: 1rem;
-  margin-bottom: 16px;
+  font-size: 0.8rem;
+  color: var(--muted-on-dark);
+  letter-spacing: 0.04em;
+  margin-bottom: 28px;
 }
 
 .hero-name {
-  font-size: clamp(2.6rem, 7vw, 4.5rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+  font-size: clamp(3.4rem, 12vw, 8.4rem);
+  margin-bottom: 40px;
+}
+
+.hero-name-line {
+  display: block;
+  color: var(--cream);
+}
+
+.hero-name-accent {
+  color: var(--orange);
+}
+
+.hero-lower {
+  display: grid;
+  grid-template-columns: minmax(0, 560px) auto;
+  align-items: end;
+  gap: 32px;
+  margin-bottom: 48px;
 }
 
 .hero-tagline {
-  max-width: 620px;
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
-  color: var(--color-text-muted);
-  margin-bottom: 36px;
+  font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+  color: var(--muted-on-dark);
+  max-width: 560px;
 }
 
 .hero-actions {
   display: flex;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
-  margin-bottom: 44px;
 }
 
 .hero-socials {
   display: flex;
-  gap: 20px;
+  gap: 28px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line-on-dark);
+  padding-top: 24px;
 }
 
 .social-link {
-  color: var(--color-text-muted);
-  transition: color var(--transition), transform var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--muted-on-dark);
+  letter-spacing: 0.03em;
+  transition: color var(--transition);
 }
 
 .social-link:hover {
-  color: var(--color-accent);
-  transform: translateY(-3px);
-}
-
-/* Small bouncing scroll indicator at the bottom of the hero */
-.scroll-cue {
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 26px;
-  height: 42px;
-  border: 2px solid var(--color-border);
-  border-radius: 20px;
-}
-
-.scroll-cue span {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--color-accent);
-  animation: scroll-cue-move 1.8s ease infinite;
-}
-
-@keyframes scroll-cue-move {
-  0% { opacity: 1; top: 8px; }
-  70% { opacity: 0; top: 20px; }
-  100% { opacity: 0; top: 8px; }
+  color: var(--blue-bright);
 }
 
 /* =========================================================================
    ABOUT
+   Left: short bio copy. Right: a 2x2 "spec sheet" of education facts using
+   large display-type values instead of rounded fact-cards. No Goal card.
    ========================================================================= */
 .about {
-  padding: 120px 0;
-  background: var(--color-bg-alt);
+  padding: 108px 0;
 }
 
 .about-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 48px;
-  align-items: start;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 28px 40px;
+  margin-bottom: 64px;
 }
 
-.about-bio {
-  color: var(--color-text-muted);
+.about-copy {
+  grid-column: span 7;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   font-size: 1.05rem;
+  color: var(--muted-on-light);
 }
 
-.about-facts {
+.about-stats {
+  grid-column: span 5;
   display: grid;
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--line-on-light);
+  border-left: 1px solid var(--line-on-light);
 }
 
-.fact-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 18px 20px;
+.stat-block {
+  border-right: 1px solid var(--line-on-light);
+  border-bottom: 1px solid var(--line-on-light);
+  padding: 22px 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  transition: border-color var(--transition), transform var(--transition);
 }
 
-.fact-card:hover {
-  border-color: var(--color-accent);
-  transform: translateY(-3px);
-}
-
-.fact-label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-accent);
+.stat-value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  line-height: 1;
 }
 
-.fact-value {
-  color: var(--color-text);
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted-on-light);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.about-coursework {
+  border-top: 1px solid var(--line-on-light);
+  padding-top: 28px;
+}
+
+.about-coursework ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  margin-top: 14px;
+}
+
+.about-coursework li {
+  position: relative;
+  padding-left: 16px;
   font-size: 0.95rem;
+}
+
+.about-coursework li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 7px;
+  height: 2px;
+  background: var(--orange);
 }
 
 /* =========================================================================
    EXPERIENCE
-   A single work-experience entry styled like a compact resume line: role,
-   company, and dates in the header row, with a short bullet list below.
-   Shares the About section's background so the two read as one "about
-   Jonathan" block before the Projects/Skills/Contact zebra pattern resumes.
+   Résumé/timeline treatment: large stacked years on the left, role detail
+   on the right.
    ========================================================================= */
 .experience {
-  padding: 120px 0;
-  background: var(--color-bg-alt);
+  padding: 108px 0;
 }
 
-.experience-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 32px;
-  transition: border-color var(--transition), transform var(--transition);
-}
-
-.experience-card:hover {
-  border-color: var(--color-accent);
-  transform: translateY(-3px);
-}
-
-.experience-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.experience-role {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.experience-company {
-  color: var(--color-text-muted);
-  font-size: 0.95rem;
+.experience-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 220px) 1fr;
+  gap: 40px;
+  border-top: 1px solid var(--line-on-dark);
+  padding-top: 40px;
 }
 
 .experience-dates {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 3.6vw, 2.8rem);
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: var(--cream);
+  display: flex;
+  flex-direction: column;
+}
+
+.experience-dates-rule {
+  width: 34px;
+  height: 3px;
+  background: var(--orange);
+  margin: 12px 0;
+}
+
+.experience-role {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 6px;
+}
+
+.experience-company {
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  color: var(--color-accent);
-  white-space: nowrap;
+  color: var(--blue-bright);
+  margin-bottom: 22px;
 }
 
 .experience-points {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  max-width: 620px;
 }
 
 .experience-points li {
   position: relative;
   padding-left: 20px;
-  color: var(--color-text-muted);
-  font-size: 0.95rem;
+  color: var(--muted-on-dark);
+  font-size: 0.97rem;
 }
 
 .experience-points li::before {
@@ -492,246 +579,361 @@ img {
   top: 0.6em;
   width: 6px;
   height: 6px;
-  border-radius: 50%;
-  background: var(--color-accent);
+  background: var(--orange);
 }
 
 /* =========================================================================
    PROJECTS
-   Cards laid out on an auto-fitting grid so it reflows cleanly from one
-   column on mobile up to three on wide screens without a media query.
+   Featured work is presented as full-width "case studies" with real
+   hierarchy, separated by heavy rules, rather than a uniform card grid.
    ========================================================================= */
 .projects {
-  padding: 120px 0;
+  padding: 108px 0;
 }
 
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
+.case-study {
+  border-top: 3px solid var(--navy);
+  padding: 44px 0;
 }
 
-.project-card {
-  position: relative;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 28px;
+.case-study:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.case-head {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 24px;
-  transition: transform var(--transition), border-color var(--transition), background var(--transition);
+  align-items: baseline;
+  gap: 22px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
 }
 
-.project-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--color-accent);
-  background: var(--color-surface-hover);
+.case-number {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--blue);
+  font-weight: 600;
 }
 
-.project-badge {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+.case-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.case-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.case-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-on-light);
+}
+
+.case-status i {
+  width: 7px;
+  height: 7px;
+  background: var(--blue);
+  display: inline-block;
+}
+
+.status-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--orange);
+  color: var(--navy);
+  padding: 3px 8px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.case-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.case-body-no-media {
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 260px);
+}
+
+.case-desc {
+  color: var(--muted-on-light);
+  font-size: 1rem;
+  margin-bottom: 26px;
+  max-width: 60ch;
+}
+
+.case-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 24px;
+  border-top: 1px solid var(--line-on-light);
+  padding-top: 20px;
+  max-width: 560px;
+}
+
+.case-meta dt {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  border-radius: 999px;
-  padding: 4px 10px;
-}
-
-.project-title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  padding-right: 90px;
-}
-
-.project-desc {
-  color: var(--color-text-muted);
-  font-size: 0.95rem;
-  margin-bottom: 18px;
-}
-
-.tech-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tech-tags li {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-muted);
-  padding: 5px 10px;
-  border-radius: 6px;
-}
-
-/* Small thumbnail pair showing real Excel output for a private-repo project;
-   each thumbnail links out to the full-size image in a new tab. */
-.project-preview-label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-text-faint);
-  text-transform: uppercase;
   letter-spacing: 0.06em;
-  margin-top: 16px;
-  margin-bottom: 8px;
+  color: var(--blue);
+  margin-bottom: 4px;
 }
 
-.project-preview {
-  display: flex;
-  gap: 10px;
-}
-
-.project-preview-link {
-  flex: 1;
-  display: block;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  transition: border-color var(--transition), transform var(--transition);
-}
-
-.project-preview-link:hover {
-  border-color: var(--color-accent);
-  transform: translateY(-3px);
-}
-
-.project-preview-link img {
-  width: 100%;
-  height: 90px;
-  object-fit: cover;
-  object-position: top;
-}
-
-.project-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-
-.project-link {
+.case-meta dd {
   font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--color-accent);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--transition);
 }
 
-.project-link:hover {
-  border-color: var(--color-accent);
-}
-
-.private-label {
-  font-size: 0.85rem;
-  color: var(--color-text-faint);
-  font-style: italic;
-}
-
-/* One-line footnote under the grid explaining why most repos aren't linked */
-.projects-note {
-  margin-top: 40px;
-  font-size: 0.85rem;
-  color: var(--color-text-faint);
-  font-style: italic;
-  max-width: 720px;
-}
-
-/* Small, muted footnote below the projects grid explaining where AI tools fit
-   into the workflow. Kept visually quiet (faint color, thin top border, no
-   card/background) so it reads as a methodology note, not a warning. */
-.ai-disclosure {
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid var(--color-border);
-  max-width: 720px;
-}
-
-.ai-disclosure-title {
+.case-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--color-text-faint);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--blue);
+  border-bottom: 1.5px solid var(--blue);
+  margin-top: 24px;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.case-link:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
+.case-link-row {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.case-link-row .case-link {
+  margin-top: 22px;
+}
+
+/* Screenshot gallery: large, inspectable, sit on a cream-soft "mat" like
+   framed prints rather than tiny thumbnails inside a card. */
+.case-figures {
+  display: flex;
+  gap: 14px;
+}
+
+.case-figure {
+  flex: 1;
+  background: var(--cream-soft);
+  padding: 10px;
+  border: 1px solid var(--line-on-light);
+}
+
+.case-image-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: zoom-in;
+  overflow: hidden;
+}
+
+.case-image-btn img {
+  width: 100%;
+  height: auto;
+  transition: transform 260ms ease;
+}
+
+.case-image-btn:hover img,
+.case-image-btn:focus-visible img {
+  transform: scale(1.02);
+}
+
+.case-image-btn:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.case-caption {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted-on-light);
+  margin-top: 12px;
+  max-width: 60ch;
+}
+
+/* Large typographic stat used in place of a screenshot that doesn't exist */
+.case-stat {
+  border: 1px solid var(--line-on-light);
+  padding: 28px 20px;
+  text-align: right;
+}
+
+.case-stat-value {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+  color: var(--orange);
+  line-height: 1;
+}
+
+.case-stat-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  color: var(--muted-on-light);
+  margin-top: 8px;
+}
+
+.projects-note {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted-on-light);
+  max-width: 720px;
+  margin-top: 8px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line-on-light);
+}
+
+/* Minor projects: compact rows, clearly secondary to the case studies above */
+.minor-projects {
+  margin-top: 40px;
+}
+
+.minor-project {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 20px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line-on-light-soft);
+}
+
+.minor-project-number {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--blue);
+}
+
+.minor-project-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.minor-project-desc {
+  color: var(--muted-on-light);
+  font-size: 0.92rem;
+  max-width: 640px;
   margin-bottom: 8px;
+}
+
+.minor-project-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted-on-light);
+}
+
+/* Dashed top rule + muted title signal "not production-ready" */
+.minor-project-progress {
+  border-top-style: dashed;
+}
+
+.minor-project-progress .minor-project-title {
+  color: var(--muted-on-light);
+}
+
+.ai-disclosure {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-on-light-soft);
+  max-width: 720px;
 }
 
 .ai-disclosure-text {
   font-size: 0.85rem;
-  color: var(--color-text-faint);
+  color: var(--muted-on-light);
   line-height: 1.6;
+  margin-top: 8px;
 }
 
 /* =========================================================================
    SKILLS
+   A four-column technical inventory on the dark section — a spec sheet /
+   index rather than a cloud of pill tags.
    ========================================================================= */
 .skills {
-  padding: 120px 0;
-  background: var(--color-bg-alt);
+  padding: 108px 0;
 }
 
-/* Each category (Languages, Data & Analysis, etc.) stacked vertically */
-.skills-groups {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+.skills-table {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.skills-group-title {
+.skills-col {
+  border-top: 2px solid var(--blue-bright);
+  padding: 20px 20px 0 0;
+}
+
+.skills-col-title {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--color-accent);
+  font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 14px;
+  letter-spacing: 0.06em;
+  color: var(--orange);
+  margin-bottom: 16px;
 }
 
-.skills-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+.skills-col li {
+  padding: 10px 0;
+  border-top: 1px solid var(--line-on-dark-soft);
+  font-size: 0.95rem;
 }
 
-.skill-pill {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  padding: 10px 18px;
-  border-radius: 999px;
-  transition: border-color var(--transition), color var(--transition), transform var(--transition);
-}
-
-.skill-pill:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  transform: translateY(-3px);
+.skills-col li:first-child {
+  border-top: none;
 }
 
 /* =========================================================================
    CONTACT
    ========================================================================= */
 .contact {
-  padding: 120px 0;
+  padding: 108px 0;
 }
 
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.1fr 1fr;
   gap: 60px;
 }
 
 .contact-copy {
-  color: var(--color-text-muted);
-  max-width: 420px;
-  margin: 16px 0 32px;
+  color: var(--muted-on-light);
+  max-width: 440px;
+  margin: 20px 0 32px;
+  font-size: 1.02rem;
 }
 
 .contact-links {
@@ -744,24 +946,23 @@ img {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: var(--color-text-muted);
+  color: var(--muted-on-light);
   transition: color var(--transition), transform var(--transition);
   width: fit-content;
 }
 
 .contact-link:hover {
-  color: var(--color-accent);
+  color: var(--blue);
   transform: translateX(4px);
 }
 
+/* Editorial form: thin bottom-border fields, no boxed card */
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 32px;
+  gap: 22px;
+  border-top: 3px solid var(--navy);
+  padding-top: 32px;
 }
 
 .form-field {
@@ -771,100 +972,298 @@ img {
 }
 
 .form-field label {
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-on-light);
 }
 
 .form-field input,
 .form-field textarea {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 12px 14px;
-  color: var(--color-text);
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--line-on-light);
+  border-radius: 0;
+  padding: 10px 2px;
+  color: var(--navy);
   font-family: var(--font-body);
-  font-size: 0.95rem;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  font-size: 0.98rem;
+  transition: border-color var(--transition);
   resize: vertical;
 }
 
 .form-field input:focus,
 .form-field textarea:focus {
   outline: none;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px var(--color-accent-dim);
+  border-color: var(--blue);
 }
 
 .form-submit {
-  width: 100%;
+  align-self: flex-start;
+  margin-top: 6px;
 }
 
 .form-note {
-  font-size: 0.85rem;
-  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--blue);
   min-height: 1.2em;
 }
 
 /* =========================================================================
    FOOTER
+   Brooklyn note, seven-slot motif, and the small rubber-duck detail.
    ========================================================================= */
 .site-footer {
-  border-top: 1px solid var(--color-border);
-  padding: 32px 0;
+  border-top: 1px solid var(--line-on-dark);
+  padding: 36px 0;
 }
 
-.footer-content {
-  text-align: center;
-  color: var(--color-text-faint);
+.footer-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-info {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
   font-size: 0.85rem;
+  color: var(--muted-on-dark);
+}
+
+.footer-locale {
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+/* Seven vertical slots — an abstract graphic detail. A tasteful design motif
+   to most visitors; a subtle nod to something the site's author likes. */
+.footer-motif {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 22px;
+}
+
+.footer-motif .slot {
+  width: 4px;
+  height: 100%;
+  background: var(--line-on-dark);
+  transition: background var(--transition);
+}
+
+.footer-motif .slot:nth-child(odd) {
+  height: 70%;
+  background: var(--blue-bright);
+  opacity: 0.55;
+}
+
+.footer-motif .slot:nth-child(4) {
+  height: 100%;
+  background: var(--orange);
+  opacity: 0.7;
+}
+
+.site-footer:hover .footer-motif .slot {
+  opacity: 0.9;
+}
+
+/* Small rubber-duck icon with a CSS-only tooltip (no JS needed) */
+.footer-duck {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  color: var(--muted-on-dark);
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.footer-duck:hover,
+.footer-duck:focus-visible {
+  color: var(--orange);
+}
+
+.duck-tooltip {
+  position: absolute;
+  bottom: 130%;
+  right: 0;
+  background: var(--cream);
+  color: var(--navy);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  white-space: nowrap;
+  padding: 6px 10px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.footer-duck:hover .duck-tooltip,
+.footer-duck:focus-visible .duck-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================================
+   LIGHTBOX
+   Simple, accessible modal for inspecting project screenshots at full size.
+   ========================================================================= */
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 17, 31, 0.92);
+}
+
+.lightbox-dialog {
+  position: relative;
+  max-width: min(90vw, 900px);
+  max-height: 90vh;
+}
+
+.lightbox-dialog img {
+  max-width: 100%;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1px solid var(--line-on-dark);
+  color: var(--cream);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox-close:hover {
+  border-color: var(--orange);
+  color: var(--orange);
 }
 
 /* =========================================================================
    RESPONSIVE — tablet & mobile
+   Typography scale, layout, and spacing are re-evaluated for small screens
+   rather than simply stacking the desktop layout.
    ========================================================================= */
-@media (max-width: 860px) {
-  .about-grid,
+@media (max-width: 960px) {
+  .about-copy {
+    grid-column: span 12;
+  }
+
+  .about-stats {
+    grid-column: span 12;
+  }
+
+  .case-body,
+  .case-body-no-media {
+    grid-template-columns: 1fr;
+  }
+
+  .case-stat {
+    text-align: left;
+    max-width: 220px;
+  }
+
   .contact-grid {
     grid-template-columns: 1fr;
   }
 }
 
+@media (max-width: 860px) {
+  .skills-table {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+  }
+}
+
 @media (max-width: 768px) {
-  .nav-links {
-    position: fixed;
-    top: 68px;
+  .site-nav {
+    /* Anchored to .masthead-inner (explicit position: relative) rather than
+       the viewport, so it can't inherit a stray containing block and
+       overflow sideways. */
+    position: absolute;
+    top: 100%;
     left: 0;
     right: 0;
+    width: auto;
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
-    background: var(--color-bg-alt);
-    border-bottom: 1px solid var(--color-border);
+    background: var(--navy);
+    border-bottom: 1px solid var(--line-on-dark);
     max-height: 0;
     overflow: hidden;
     transition: max-height var(--transition);
+    margin-right: 0;
   }
 
-  .nav-links.is-open {
-    max-height: 320px;
+  .site-nav.is-open {
+    max-height: 360px;
   }
 
-  .nav-links li {
-    width: 100%;
-  }
-
-  .nav-links li a {
+  .site-nav a {
     display: block;
-    padding: 16px 24px;
     width: 100%;
+    padding: 14px var(--edge);
+  }
+
+  .nav-contact {
+    margin: 8px var(--edge);
+    width: fit-content;
+  }
+
+  .masthead-locale {
+    display: none;
   }
 
   .nav-toggle {
     display: flex;
   }
 
+  .hero {
+    padding: 44px 0 64px;
+    border-left-width: 4px;
+  }
+
+  .hero-lower {
+    grid-template-columns: 1fr;
+  }
+
   .hero-actions {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .about,
@@ -872,10 +1271,39 @@ img {
   .projects,
   .skills,
   .contact {
-    padding: 80px 0;
+    padding: 72px 0;
   }
 
-  .experience-header {
+  .experience-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .experience-dates {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.6rem;
+  }
+
+  .experience-dates-rule {
+    width: 3px;
+    height: 20px;
+    margin: 0;
+  }
+
+  .case-figures {
     flex-direction: column;
+  }
+
+  .skills-table {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer-grid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
   }
 }

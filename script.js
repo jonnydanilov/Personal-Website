@@ -23,44 +23,74 @@ navLinks.querySelectorAll("a").forEach((link) => {
 });
 
 /* =========================================================================
-   HEADER BACKGROUND + SCROLL PROGRESS BAR
-   As the visitor scrolls: (1) the header gains a solid background/shadow
-   once they've moved past the very top, and (2) the thin bar at the top of
-   the page fills left-to-right based on how far through the page they are.
+   SCROLL-SPY NAVIGATION
+   Highlights the nav link for whichever main section is currently in view,
+   so the underline gives quiet feedback on where you are in the page
+   instead of a generic top-of-page progress bar.
    ========================================================================= */
-const header = document.getElementById("site-header");
-const scrollProgress = document.getElementById("scroll-progress");
+const sections = document.querySelectorAll("main section[id]");
+const navLinkBySection = new Map(
+  Array.from(navLinks.querySelectorAll("a[data-section]")).map((link) => [
+    link.dataset.section,
+    link,
+  ])
+);
 
-function updateOnScroll() {
-  header.classList.toggle("is-scrolled", window.scrollY > 20);
-
-  const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const progress = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
-  scrollProgress.style.width = `${progress}%`;
-}
-
-window.addEventListener("scroll", updateOnScroll, { passive: true });
-updateOnScroll();
-
-/* =========================================================================
-   SCROLL-REVEAL ANIMATIONS
-   Watches every element with the ".reveal" class and adds ".is-visible"
-   the moment it enters the viewport, which triggers the fade/slide-up
-   transition defined in styles.css. Each element only reveals once.
-   ========================================================================= */
-const revealObserver = new IntersectionObserver(
+const sectionObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
+      const link = navLinkBySection.get(entry.target.id);
+      if (!link) return;
       if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        revealObserver.unobserve(entry.target);
+        navLinkBySection.forEach((l) => l.classList.remove("is-active"));
+        link.classList.add("is-active");
       }
     });
   },
-  { threshold: 0.15 }
+  { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
 );
 
-document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+sections.forEach((section) => sectionObserver.observe(section));
+
+/* =========================================================================
+   PROJECT SCREENSHOT LIGHTBOX
+   Clicking a screenshot opens an enlarged, accessible overlay. Closes on
+   Escape, on backdrop click, or via the close button, and returns focus to
+   whichever thumbnail opened it.
+   ========================================================================= */
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightbox-image");
+const lightboxClose = document.getElementById("lightbox-close");
+let lastFocusedTrigger = null;
+
+function openLightbox(trigger) {
+  lastFocusedTrigger = trigger;
+  lightboxImage.src = trigger.dataset.lightboxSrc;
+  lightboxImage.alt = trigger.dataset.lightboxAlt || "";
+  lightbox.hidden = false;
+  document.body.style.overflow = "hidden";
+  lightboxClose.focus();
+}
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  lightboxImage.src = "";
+  document.body.style.overflow = "";
+  if (lastFocusedTrigger) lastFocusedTrigger.focus();
+}
+
+document.querySelectorAll(".case-image-btn").forEach((btn) => {
+  btn.addEventListener("click", () => openLightbox(btn));
+});
+
+lightboxClose.addEventListener("click", closeLightbox);
+document.querySelectorAll("[data-lightbox-close]").forEach((el) => {
+  el.addEventListener("click", closeLightbox);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !lightbox.hidden) closeLightbox();
+});
 
 /* =========================================================================
    CONTACT FORM (FRONT-END ONLY)

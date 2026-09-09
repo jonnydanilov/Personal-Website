@@ -6,351 +6,497 @@
   <title>Jonathan Danilov | Data Science Portfolio</title>
   <meta name="description" content="Jonathan Danilov, a Computer Information Systems student at Baruch College's Zicklin School of Business, building Python applications, automation systems, and analytics tools as he works toward a career in Data Science." />
 
-  <!-- Simple inline SVG favicon (initials "JD") so the browser tab doesn't request a missing favicon.ico -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Ctext x='32' y='42' font-family='Arial, sans-serif' font-size='26' font-weight='700' fill='%2364ffda' text-anchor='middle'%3EJD%3C/text%3E%3C/svg%3E" />
+  <!-- Open Graph / social preview metadata: no image asset exists yet, so only
+       text fields are set (an invented preview image would be misleading). -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Jonathan Danilov | Data Science Portfolio" />
+  <meta property="og:description" content="CIS student at Baruch College building Python applications, automation systems, and analytics tools with real-world data." />
+  <meta property="og:site_name" content="Jonathan Danilov" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Jonathan Danilov | Data Science Portfolio" />
+  <meta name="twitter:description" content="CIS student at Baruch College building Python applications, automation systems, and analytics tools with real-world data." />
 
-  <!-- Google Font: Inter for body text, kept as a stylesheet link only (no external JS) -->
+  <!-- Simple inline SVG favicon (initials "JD" on navy) so the browser tab doesn't request a missing favicon.ico -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2307111F'/%3E%3Ctext x='32' y='43' font-family='Arial, sans-serif' font-size='26' font-weight='800' fill='%23F58426' text-anchor='middle'%3EJD%3C/text%3E%3C/svg%3E" />
+
+  <!-- Google Fonts: Big Shoulders Display for headlines/numbers (editorial, athletic,
+       scoreboard-like), Inter for body copy, JetBrains Mono for small technical labels -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Thin progress bar filled by JS as the visitor scrolls down the page -->
-  <div class="scroll-progress" id="scroll-progress"></div>
+  <!-- ============ MASTHEAD / NAV ============
+       A persistent dark nameplate bar, styled like a newspaper masthead rather
+       than a floating translucent nav. Includes a small "BROOKLYN, NY" locale
+       tag, which is the site's one subtle, always-visible NYC detail. -->
+  <header class="masthead" id="site-header">
+    <div class="container masthead-inner">
+      <a href="#home" class="brand">JD<span class="brand-mark">.</span></a>
 
-  <!-- ============ HEADER / NAV ============ -->
-  <header class="site-header" id="site-header">
-    <nav class="nav container">
-      <a href="#home" class="nav-logo">JD<span class="nav-logo-dot">.</span></a>
-
-      <ul class="nav-links" id="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
+      <nav class="site-nav" id="nav-links" aria-label="Primary">
+        <a href="#about" data-section="about">About</a>
+        <a href="#experience" data-section="experience">Experience</a>
+        <a href="#projects" data-section="projects">Projects</a>
+        <a href="#skills" data-section="skills">Skills</a>
         <!-- Placeholder: points at resume.pdf, which doesn't exist in the repo yet.
              Add a resume.pdf file to the project root to make this link work. -->
-        <li><a href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
-        <li><a href="#contact" class="nav-cta">Contact</a></li>
-      </ul>
+        <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
+        <a href="#contact" class="nav-contact">Contact</a>
+      </nav>
+
+      <p class="masthead-locale">Brooklyn, NY</p>
 
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
       </button>
-    </nav>
+    </div>
   </header>
 
   <main>
-    <!-- ============ HERO ============ -->
+    <!-- ============ HERO ============
+         Asymmetric, left-aligned editorial composition instead of a centered
+         "greeting / big name / paragraph / two buttons" stack. The name is the
+         dominant visual element, set in the display typeface at a large size. -->
     <section class="hero" id="home">
-      <div class="hero-glow" aria-hidden="true"></div>
-      <div class="container hero-content">
-        <p class="hero-eyebrow reveal">Hi, I'm</p>
-        <h1 class="hero-name reveal">Jonathan Danilov</h1>
-        <p class="hero-tagline reveal">
-          Computer Information Systems student at Baruch College building
-          data-driven Python applications, automation systems, and analytics
-          tools with real-world data.
-        </p>
-
-        <div class="hero-actions reveal">
-          <a href="#projects" class="btn btn-primary">View Projects</a>
-          <!-- Placeholder: points at resume.pdf, which doesn't exist in the repo yet -->
-          <a href="resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">View Resume</a>
+      <div class="container hero-grid">
+        <div class="hero-tags">
+          <span>Portfolio — 2026</span>
+          <span>CIS · Baruch College</span>
         </div>
 
-        <div class="hero-socials reveal">
-          <a href="https://github.com/jonnydanilov" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-              <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.06.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.27-5.23-11.5-11.5-11.5Z"/>
-            </svg>
-          </a>
-          <a href="https://www.linkedin.com/in/jonathandanilov" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-              <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z"/>
-            </svg>
-          </a>
-          <a href="mailto:jonny.danilov14@gmail.com" class="social-link" aria-label="Email">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
-              <path d="m3 6.5 9 6.5 9-6.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </div>
-      </div>
+        <h1 class="hero-name">
+          <span class="hero-name-line">Jonathan</span>
+          <span class="hero-name-line hero-name-accent">Danilov</span>
+        </h1>
 
-      <a href="#about" class="scroll-cue" aria-label="Scroll to About section">
-        <span></span>
-      </a>
-    </section>
-
-    <!-- ============ ABOUT ============ -->
-    <section class="about" id="about">
-      <div class="container">
-        <p class="section-eyebrow reveal">About</p>
-        <h2 class="section-title reveal">A bit about me</h2>
-
-        <div class="about-grid">
-          <p class="about-bio reveal">
-            I'm pursuing a BBA in Computer Information Systems with a minor in Computer
-            Science at Baruch College's Zicklin School of Business, graduating in June
-            2028. Alongside school, I work as a Senior Administrator of Operations &amp;
-            Automation, where I build Python automation systems and lead a team of 10
-            administrators.
-            <br /><br />
-            Outside of work and school, I build applications and analytics tools using
-            live APIs and real-world datasets. I'm especially interested in turning raw
-            data into useful insights and practical tools as I work toward a career in
-            Data Science.
+        <div class="hero-lower">
+          <p class="hero-tagline">
+            Computer Information Systems student at Baruch College building
+            data-driven Python applications, automation systems, and
+            analytics tools with real-world data.
           </p>
 
-          <div class="about-facts reveal">
-            <div class="fact-card">
-              <span class="fact-label">Education</span>
-              <span class="fact-value">B.B.A. in CIS, C.S. Minor<br />Zicklin School of Business, Baruch College</span>
-            </div>
-            <div class="fact-card">
-              <span class="fact-label">Coursework</span>
-              <span class="fact-value">Introduction to Python, Object‑Oriented Programming (C++), Programming for Analytics</span>
-            </div>
-            <div class="fact-card">
-              <span class="fact-label">Graduating</span>
-              <span class="fact-value">June 2028</span>
-            </div>
-            <div class="fact-card">
-              <span class="fact-label">Goal</span>
-              <span class="fact-value">Summer 2027 Data Science Internship</span>
-            </div>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-solid">View Projects</a>
+            <!-- Placeholder: points at resume.pdf, which doesn't exist in the repo yet -->
+            <a href="resume.pdf" class="btn btn-outline" target="_blank" rel="noopener">View Resume</a>
           </div>
+        </div>
+
+        <div class="hero-socials">
+          <a href="https://github.com/jonnydanilov" class="social-link" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.06.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.27-5.23-11.5-11.5-11.5Z"/>
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <a href="https://www.linkedin.com/in/jonathandanilov" class="social-link" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z"/>
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="mailto:jonny.danilov14@gmail.com" class="social-link">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/>
+              <path d="m3 6.5 9 6.5 9-6.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Email</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ============ EXPERIENCE ============ -->
-    <section class="experience" id="experience">
+    <!-- ============ ABOUT ============
+         Two-column editorial layout: short bio on the left, a 2x2 "spec sheet"
+         of education facts on the right using big display-type anchors instead
+         of generic rounded fact-cards. No Goal card here (removed per request;
+         the internship goal now lives only in Contact). -->
+    <section class="about" id="about">
       <div class="container">
-        <p class="section-eyebrow reveal">Experience</p>
-        <h2 class="section-title reveal">Where I've worked</h2>
+        <div class="section-head">
+          <span class="section-num">01</span>
+          <h2 class="section-title">About</h2>
+        </div>
 
-        <div class="experience-card reveal">
-          <div class="experience-header">
-            <div>
-              <h3 class="experience-role">Senior Administrator, Operations &amp; Automation</h3>
-              <p class="experience-company">SDP Enterprises Inc.</p>
-            </div>
-            <span class="experience-dates">2023 – Present</span>
+        <div class="about-grid">
+          <div class="about-copy">
+            <p>
+              I'm pursuing a BBA in Computer Information Systems with a minor in
+              Computer Science at Baruch College's Zicklin School of Business,
+              graduating in June 2028. Alongside school, I work as a Senior
+              Administrator of Operations &amp; Automation, where I build Python
+              automation systems and lead a team of 10 administrators.
+            </p>
+            <p>
+              Outside of work and school, I build applications and analytics
+              tools using live APIs and real-world datasets. I'm especially
+              interested in turning raw data into useful insights and practical
+              tools as I work toward a career in Data Science.
+            </p>
           </div>
-          <ul class="experience-points">
-            <li>Build and deploy Python automation tools that support internal operational workflows.</li>
-            <li>Identify manual processes and implement automated solutions to improve team efficiency.</li>
-            <li>Lead and coordinate a team of 10 administrators.</li>
+
+          <div class="about-stats">
+            <div class="stat-block">
+              <span class="stat-value">Baruch</span>
+              <span class="stat-label">Zicklin School of Business</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-value">2028</span>
+              <span class="stat-label">Expected Graduation</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-value">CIS</span>
+              <span class="stat-label">B.B.A. Major</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-value">CS Minor</span>
+              <span class="stat-label">Computer Science</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-coursework">
+          <p class="mono-label">Relevant Coursework</p>
+          <ul>
+            <li>Introduction to Python</li>
+            <li>Object-Oriented Programming (C++)</li>
+            <li>Programming for Analytics</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- ============ PROJECTS ============ -->
-    <section class="projects" id="projects">
+    <!-- ============ EXPERIENCE ============
+         Résumé-style timeline row: large stacked years on the left, role
+         detail on the right, instead of another bordered card. -->
+    <section class="experience" id="experience">
       <div class="container">
-        <p class="section-eyebrow reveal">Projects</p>
-        <h2 class="section-title reveal">Things I've built</h2>
-
-        <div class="projects-grid">
-
-          <!-- Project 1: Price Tracker -->
-          <article class="project-card reveal">
-            <div class="project-card-body">
-              <h3 class="project-title">Price Tracker</h3>
-              <p class="project-desc">
-                Full‑stack price‑monitoring application that schedules product‑page
-                scrapes, stores historical prices in PostgreSQL, and visualizes price
-                trends over time. Google OAuth provides authenticated, user‑specific
-                watchlists.
-              </p>
-              <ul class="tech-tags">
-                <li>Flask</li>
-                <li>PostgreSQL</li>
-                <li>BeautifulSoup</li>
-                <li>APScheduler</li>
-                <li>Chart.js</li>
-                <li>Google OAuth</li>
-                <li>Railway</li>
-              </ul>
-            </div>
-            <div class="project-links">
-              <a href="https://price-tracker-production-98d2.up.railway.app/" class="project-link" target="_blank" rel="noopener">Live Demo ↗</a>
-              <a href="https://github.com/jonnydanilov/Price-Tracker" class="project-link project-link-repo" target="_blank" rel="noopener">View Repo →</a>
-            </div>
-          </article>
-
-          <!-- Project 2: MLB Home Run Tracker -->
-          <article class="project-card reveal">
-            <div class="project-card-body">
-              <h3 class="project-title">MLB Home Run Tracker</h3>
-              <p class="project-desc">
-                Architected and deployed a live MLB home‑run alerting system with a
-                web dashboard and companion Discord bot. The backend polls live game
-                data every 15 seconds, detects new home runs, and delivers real‑time
-                alerts to paying subscribers.
-              </p>
-              <ul class="tech-tags">
-                <li>Python</li>
-                <li>Discord API</li>
-                <li>Live Data Polling</li>
-                <li>Dashboard</li>
-                <li>Railway</li>
-              </ul>
-            </div>
-            <div class="project-links">
-              <a href="https://homerun-tracker-production.up.railway.app" class="project-link" target="_blank" rel="noopener">Live Demo ↗</a>
-              <span class="private-label">Private Repository</span>
-            </div>
-          </article>
-
-          <!-- Project 3: MLB Matchup Analytics Toolkit -->
-          <article class="project-card reveal">
-            <div class="project-card-body">
-              <h3 class="project-title">MLB Matchup Analytics Toolkit</h3>
-              <p class="project-desc">
-                Architected a two‑part MLB research toolkit that combines MLB Stats
-                API and Baseball Savant data to analyze batter‑pitcher matchups and
-                starting‑pitcher performance. The tools calculate historical matchup
-                statistics, handedness splits, home/away ERA, and barrel rate, then
-                export color‑coded results to Excel to streamline daily analysis.
-              </p>
-              <ul class="tech-tags">
-                <li>Python</li>
-                <li>MLB Stats API</li>
-                <li>pybaseball</li>
-                <li>pandas</li>
-                <li>openpyxl</li>
-              </ul>
-
-              <p class="project-preview-label">Example output</p>
-              <div class="project-preview">
-                <a href="assets/mlb-toolkit-hitter-splits.jpg" class="project-preview-link" target="_blank" rel="noopener">
-                  <img src="assets/mlb-toolkit-hitter-splits.jpg" alt="Hitter vs. pitcher matchup splits exported to Excel by the MLB Matchup Analytics Toolkit" loading="lazy" />
-                </a>
-                <a href="assets/mlb-toolkit-pitcher-barrels.png" class="project-preview-link" target="_blank" rel="noopener">
-                  <img src="assets/mlb-toolkit-pitcher-barrels.png" alt="Pitcher barrel rate and home/away ERA splits exported to Excel by the MLB Matchup Analytics Toolkit" loading="lazy" />
-                </a>
-              </div>
-            </div>
-            <div class="project-links">
-              <span class="private-label">Private Repository</span>
-            </div>
-          </article>
-
-          <!-- Project 4: Resubscriber Discord Bot -->
-          <article class="project-card reveal">
-            <div class="project-card-body">
-              <h3 class="project-title">Resubscriber Discord Bot</h3>
-              <p class="project-desc">
-                Architected and deployed a Discord automation bot that identifies
-                lapsed or inactive subscribers and sends automated win‑back messages
-                designed to re‑engage former customers and encourage resubscriptions.
-              </p>
-              <ul class="tech-tags">
-                <li>Python</li>
-                <li>Discord API</li>
-                <li>Automation</li>
-              </ul>
-            </div>
-            <div class="project-links">
-              <span class="private-label">Private Repository</span>
-            </div>
-          </article>
-
-          <!-- Project 5: Job Application Tracker (in progress) -->
-          <article class="project-card reveal">
-            <span class="project-badge">In Progress</span>
-            <div class="project-card-body">
-              <h3 class="project-title">Job Application Tracker</h3>
-              <p class="project-desc">
-                In development: a dashboard that logs job applications and uses the
-                Gmail API to automatically detect application status changes, reducing
-                the need for manual spreadsheet updates.
-              </p>
-              <ul class="tech-tags">
-                <li>Python</li>
-                <li>Gmail API</li>
-                <li>Automation</li>
-                <li>Dashboard</li>
-              </ul>
-            </div>
-          </article>
-
+        <div class="section-head">
+          <span class="section-num">02</span>
+          <h2 class="section-title">Experience</h2>
         </div>
 
-        <!-- Subtle footnote explaining why most repos above aren't linked directly. -->
-        <p class="projects-note reveal">
-          Selected project repositories are private; I'm happy to walk through the
-          architecture and code during an interview.
+        <div class="experience-row">
+          <div class="experience-dates">
+            <span>2023</span>
+            <span class="experience-dates-rule" aria-hidden="true"></span>
+            <span>Present</span>
+          </div>
+
+          <div class="experience-detail">
+            <h3 class="experience-role">Senior Administrator, Operations &amp; Automation</h3>
+            <p class="experience-company">SDP Enterprises Inc.</p>
+            <ul class="experience-points">
+              <li>Build and deploy Python automation tools that support internal operational workflows.</li>
+              <li>Identify manual processes and implement automated solutions to improve team efficiency.</li>
+              <li>Lead and coordinate a team of 10 administrators.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============
+         The centerpiece section. Featured projects are full-width case studies
+         with real hierarchy (number, title, role/data/stack/status metadata,
+         large imagery) instead of a uniform grid of same-sized cards. -->
+    <section class="projects" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-num">03</span>
+          <h2 class="section-title">Projects</h2>
+        </div>
+
+        <!-- ---- Case study 01: MLB Matchup Analytics Toolkit ---- -->
+        <article class="case-study">
+          <div class="case-head">
+            <span class="case-number">01</span>
+            <div class="case-heading">
+              <h3 class="case-title">MLB Matchup<br />Analytics Toolkit</h3>
+              <span class="case-status status-production"><i></i>Production</span>
+            </div>
+          </div>
+
+          <div class="case-body">
+            <div class="case-copy">
+              <p class="case-desc">
+                A two-part MLB research toolkit that combines MLB Stats API and
+                Baseball Savant data to analyze batter-pitcher matchups and
+                starting-pitcher performance. The tools calculate historical
+                matchup statistics, handedness splits, home/away ERA, and
+                barrel rate, then export color-coded results to Excel to
+                streamline daily analysis.
+              </p>
+
+              <dl class="case-meta">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Architecture · Integration · Deployment</dd>
+                </div>
+                <div>
+                  <dt>Data</dt>
+                  <dd>MLB Stats API · Baseball Savant</dd>
+                </div>
+                <div>
+                  <dt>Stack</dt>
+                  <dd>Python · pandas · pybaseball · openpyxl</dd>
+                </div>
+                <div>
+                  <dt>Repository</dt>
+                  <dd>Private</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div class="case-media">
+              <div class="case-figures">
+                <figure class="case-figure">
+                  <button
+                    type="button"
+                    class="case-image-btn"
+                    data-lightbox-src="assets/mlb-toolkit-hitter-splits.jpg"
+                    data-lightbox-alt="Hitter versus pitcher matchup splits, color-coded and exported to Excel by the MLB Matchup Analytics Toolkit, shown under SwiftDailyPicks branding"
+                    aria-label="Expand hitter matchup splits screenshot"
+                  >
+                    <img
+                      src="assets/mlb-toolkit-hitter-splits.jpg"
+                      alt="Hitter versus pitcher matchup splits, color-coded and exported to Excel by the MLB Matchup Analytics Toolkit, shown under SwiftDailyPicks branding"
+                      loading="lazy"
+                      width="1175"
+                      height="1308"
+                    />
+                  </button>
+                </figure>
+                <figure class="case-figure">
+                  <button
+                    type="button"
+                    class="case-image-btn"
+                    data-lightbox-src="assets/mlb-toolkit-pitcher-barrels.png"
+                    data-lightbox-alt="Starting pitcher barrel rate and home/away ERA splits exported to Excel by the MLB Matchup Analytics Toolkit, shown under SwiftDailyPicks branding"
+                    aria-label="Expand pitcher barrel rate screenshot"
+                  >
+                    <img
+                      src="assets/mlb-toolkit-pitcher-barrels.png"
+                      alt="Starting pitcher barrel rate and home/away ERA splits exported to Excel by the MLB Matchup Analytics Toolkit, shown under SwiftDailyPicks branding"
+                      loading="lazy"
+                      width="1122"
+                      height="1402"
+                    />
+                  </button>
+                </figure>
+              </div>
+              <p class="case-caption">
+                Production outputs generated by the MLB Matchup Analytics
+                Toolkit for SwiftDailyPicks. Click either image to expand.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---- Case study 02: MLB Home Run Tracker ---- -->
+        <article class="case-study">
+          <div class="case-head">
+            <span class="case-number">02</span>
+            <div class="case-heading">
+              <h3 class="case-title">MLB Home Run<br />Tracker</h3>
+              <span class="case-status status-production"><i></i>Production</span>
+            </div>
+          </div>
+
+          <div class="case-body case-body-no-media">
+            <div class="case-copy">
+              <p class="case-desc">
+                Architected and deployed a live MLB home-run alerting system
+                with a web dashboard and companion Discord bot. The backend
+                polls live game data every 15 seconds, detects new home runs,
+                and delivers real-time alerts to paying subscribers.
+              </p>
+
+              <dl class="case-meta">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Architecture · Backend · Deployment</dd>
+                </div>
+                <div>
+                  <dt>Data</dt>
+                  <dd>Live MLB game data · 15s polling</dd>
+                </div>
+                <div>
+                  <dt>Stack</dt>
+                  <dd>Python · Discord API · Railway</dd>
+                </div>
+                <div>
+                  <dt>Repository</dt>
+                  <dd>Private</dd>
+                </div>
+              </dl>
+
+              <a href="https://homerun-tracker-production.up.railway.app" class="case-link" target="_blank" rel="noopener">Live Dashboard <span aria-hidden="true">↗</span></a>
+            </div>
+
+            <!-- No screenshot exists for this project yet, so the real "15s
+                 polling interval" fact is used as a large typographic stat
+                 instead of a placeholder or fabricated image. -->
+            <div class="case-stat" aria-hidden="true">
+              <span class="case-stat-value">15s</span>
+              <span class="case-stat-label">Poll Interval</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---- Case study 03: Price Tracker ---- -->
+        <article class="case-study">
+          <div class="case-head">
+            <span class="case-number">03</span>
+            <div class="case-heading">
+              <h3 class="case-title">Price<br />Tracker</h3>
+              <span class="case-status status-production"><i></i>Production</span>
+            </div>
+          </div>
+
+          <div class="case-body case-body-no-media">
+            <div class="case-copy">
+              <p class="case-desc">
+                Full-stack price-monitoring application that schedules
+                product-page scrapes, stores historical prices in PostgreSQL,
+                and visualizes price trends over time. Google OAuth provides
+                authenticated, user-specific watchlists.
+              </p>
+
+              <dl class="case-meta">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Full-Stack · Deployment</dd>
+                </div>
+                <div>
+                  <dt>Data</dt>
+                  <dd>Scheduled product-page scrapes</dd>
+                </div>
+                <div>
+                  <dt>Stack</dt>
+                  <dd>Flask · PostgreSQL · BeautifulSoup · APScheduler · Chart.js · Google OAuth · Railway</dd>
+                </div>
+                <div>
+                  <dt>Repository</dt>
+                  <dd>Public</dd>
+                </div>
+              </dl>
+
+              <div class="case-link-row">
+                <a href="https://price-tracker-production-98d2.up.railway.app/" class="case-link" target="_blank" rel="noopener">Live <span aria-hidden="true">↗</span></a>
+                <a href="https://github.com/jonnydanilov/Price-Tracker" class="case-link" target="_blank" rel="noopener">Source <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Global note about private repositories, shown once rather than
+             repeated under every project. -->
+        <p class="projects-note">
+          Selected project repositories are private; I'm happy to walk through
+          the architecture and code during an interview.
         </p>
 
-        <!-- Subtle development-methodology note: how AI tools fit into my workflow
-             without overstating or understating my own role in these projects. -->
-        <div class="ai-disclosure reveal">
-          <p class="ai-disclosure-title">AI-Assisted Development</p>
+        <!-- ---- Minor projects: smaller, secondary treatment ---- -->
+        <div class="minor-projects">
+          <div class="minor-project">
+            <span class="minor-project-number">04</span>
+            <div class="minor-project-body">
+              <h4 class="minor-project-title">Resubscriber Discord Bot</h4>
+              <p class="minor-project-desc">
+                Architected and deployed a Discord automation bot that
+                identifies lapsed or inactive subscribers and sends automated
+                win-back messages designed to re-engage former customers and
+                encourage resubscriptions.
+              </p>
+              <p class="minor-project-meta">Python · Discord API · Automation — Private Repository</p>
+            </div>
+          </div>
+
+          <div class="minor-project minor-project-progress">
+            <span class="minor-project-number">05</span>
+            <div class="minor-project-body">
+              <h4 class="minor-project-title">
+                Job Application Tracker
+                <span class="status-tag">In Progress</span>
+              </h4>
+              <p class="minor-project-desc">
+                In development: a dashboard that logs job applications and
+                uses the Gmail API to automatically detect application status
+                changes, reducing the need for manual spreadsheet updates.
+              </p>
+              <p class="minor-project-meta">Python · Gmail API · Automation · Dashboard</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Small, quiet methodology note — not a warning or a highlighted card. -->
+        <div class="ai-disclosure">
+          <p class="mono-label">AI-Assisted Development</p>
           <p class="ai-disclosure-text">
             For the MLB Home Run Tracker, MLB Matchup Analytics Toolkit, and
-            Resubscriber Discord Bot, I use ChatGPT and Claude Code as development
-            tools to assist with portions of backend implementation and iteration.
-            I design the project architecture and data flow, integrate and debug
-            components, test outputs and system behavior, and handle deployment.
+            Resubscriber Discord Bot, I use ChatGPT and Claude Code as
+            development tools to assist with portions of backend
+            implementation and iteration. I design the project architecture
+            and data flow, integrate and debug components, test outputs and
+            system behavior, and handle deployment.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ============ SKILLS ============ -->
+    <!-- ============ SKILLS ============
+         A four-column technical inventory on the dark "dashboard" section,
+         styled as a spec sheet/index rather than a cloud of pill tags. -->
     <section class="skills" id="skills">
       <div class="container">
-        <p class="section-eyebrow reveal">Skills</p>
-        <h2 class="section-title reveal">Tools I work with</h2>
+        <div class="section-head">
+          <span class="section-num">04</span>
+          <h2 class="section-title">Skills</h2>
+        </div>
 
-        <!-- Skills grouped by category instead of one flat list, so it reads more
-             like a technical profile than a generic tag cloud. -->
-        <div class="skills-groups reveal">
-          <div class="skills-group">
-            <h3 class="skills-group-title">Programming</h3>
-            <ul class="skills-grid">
-              <li class="skill-pill">Python</li>
-              <li class="skill-pill">C++</li>
-              <li class="skill-pill">SQL</li>
-              <li class="skill-pill">JavaScript</li>
+        <div class="skills-table">
+          <div class="skills-col">
+            <h3 class="skills-col-title">Programming</h3>
+            <ul>
+              <li>Python</li>
+              <li>C++</li>
+              <li>SQL</li>
+              <li>JavaScript</li>
             </ul>
           </div>
-          <div class="skills-group">
-            <h3 class="skills-group-title">Data &amp; Databases</h3>
-            <ul class="skills-grid">
-              <li class="skill-pill">pandas</li>
-              <li class="skill-pill">PostgreSQL</li>
-              <li class="skill-pill">openpyxl</li>
-              <li class="skill-pill">pybaseball</li>
+          <div class="skills-col">
+            <h3 class="skills-col-title">Data &amp; Databases</h3>
+            <ul>
+              <li>pandas</li>
+              <li>PostgreSQL</li>
+              <li>openpyxl</li>
+              <li>pybaseball</li>
             </ul>
           </div>
-          <div class="skills-group">
-            <h3 class="skills-group-title">Development</h3>
-            <ul class="skills-grid">
-              <li class="skill-pill">Flask</li>
-              <li class="skill-pill">HTML/CSS</li>
-              <li class="skill-pill">API Integration</li>
-              <li class="skill-pill">Web Scraping</li>
-              <li class="skill-pill">Automation</li>
-              <li class="skill-pill">Discord Bot Development</li>
+          <div class="skills-col">
+            <h3 class="skills-col-title">Development</h3>
+            <ul>
+              <li>Flask</li>
+              <li>HTML/CSS</li>
+              <li>API Integration</li>
+              <li>Web Scraping</li>
+              <li>Automation</li>
+              <li>Discord Bot Development</li>
             </ul>
           </div>
-          <div class="skills-group">
-            <h3 class="skills-group-title">Tools &amp; Deployment</h3>
-            <ul class="skills-grid">
-              <li class="skill-pill">Git/GitHub</li>
-              <li class="skill-pill">Railway</li>
+          <div class="skills-col">
+            <h3 class="skills-col-title">Tools &amp; Deployment</h3>
+            <ul>
+              <li>Git/GitHub</li>
+              <li>Railway</li>
             </ul>
           </div>
         </div>
@@ -360,9 +506,11 @@
     <!-- ============ CONTACT ============ -->
     <section class="contact" id="contact">
       <div class="container contact-grid">
-        <div class="contact-intro reveal">
-          <p class="section-eyebrow">Contact</p>
-          <h2 class="section-title">Let's talk</h2>
+        <div class="contact-intro">
+          <div class="section-head">
+            <span class="section-num">05</span>
+            <h2 class="section-title">Contact</h2>
+          </div>
           <p class="contact-copy">
             I'm currently seeking Summer 2027 Data Science internship
             opportunities and am always open to discussing the projects above.
@@ -370,20 +518,20 @@
 
           <div class="contact-links">
             <a href="mailto:jonny.danilov14@gmail.com" class="contact-link">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/>
                 <path d="m3 6.5 9 6.5 9-6.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               jonny.danilov14@gmail.com
             </a>
             <a href="https://www.linkedin.com/in/jonathandanilov" class="contact-link" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                 <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z"/>
               </svg>
               LinkedIn
             </a>
             <a href="https://github.com/jonnydanilov" class="contact-link" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                 <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.06.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.27-5.23-11.5-11.5-11.5Z"/>
               </svg>
               GitHub
@@ -392,7 +540,7 @@
         </div>
 
         <!-- Front-end only contact form: no backend, JS builds a mailto: link on submit -->
-        <form class="contact-form reveal" id="contact-form" novalidate>
+        <form class="contact-form" id="contact-form" novalidate>
           <div class="form-field">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required autocomplete="name" />
@@ -405,18 +553,51 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary form-submit">Send Message</button>
+          <button type="submit" class="btn btn-solid form-submit">Send Message</button>
           <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
   </main>
 
+  <!-- ============ FOOTER ============
+       Holds the two approved personal details: a seven-slot abstract graphic
+       motif and a tiny rubber-duck icon with a debugging tooltip, alongside
+       the Brooklyn note and copyright. -->
   <footer class="site-footer">
-    <div class="container footer-content">
-      <p>© <span id="footer-year"></span> Jonathan Danilov. Built with HTML, CSS &amp; JavaScript.</p>
+    <div class="container footer-grid">
+      <div class="footer-info">
+        <p class="footer-locale">Brooklyn, NY</p>
+        <p class="footer-copy">© <span id="footer-year"></span> Jonathan Danilov</p>
+      </div>
+
+      <div class="footer-motif" aria-hidden="true">
+        <span class="slot"></span>
+        <span class="slot"></span>
+        <span class="slot"></span>
+        <span class="slot"></span>
+        <span class="slot"></span>
+        <span class="slot"></span>
+        <span class="slot"></span>
+      </div>
+
+      <button type="button" class="footer-duck" aria-label="Rubber duck debugging">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+          <path d="M9 3c-1.7 0-3 1.4-3 3.1 0 .9.4 1.7 1 2.3-2.4.9-4 3.1-4 5.8 0 3.6 3.4 6.3 7.6 6.3 4.6 0 8.4-2.9 8.4-7.2 0-1.7-.6-3.2-1.7-4.4.4-.5.7-1.1.7-1.8 0-1.5-1.2-2.7-2.7-2.7-.6 0-1.2.2-1.6.6C12.7 4 11 3 9 3zm7.8 5.4c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9z"/>
+        </svg>
+        <span class="duck-tooltip" role="tooltip">Rubber duck debugging.</span>
+      </button>
     </div>
   </footer>
+
+  <!-- Accessible image lightbox, hidden until a project screenshot is clicked -->
+  <div class="lightbox" id="lightbox" hidden>
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Expanded project screenshot">
+      <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close expanded image">×</button>
+      <img src="" alt="" id="lightbox-image" />
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
