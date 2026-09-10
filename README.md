@@ -1,22 +1,47 @@
-# Personal Portfolio — Jonathan Danilov
+# Jonathan Danilov — Personal Portfolio
 
-A personal portfolio site built with plain HTML, CSS, and vanilla JavaScript — no frameworks, no build tools.
+My personal Data Science / technical portfolio: background, experience, and
+project case studies, built as a static site with plain HTML, CSS, and
+vanilla JavaScript — no frameworks, no build tools.
 
 **Live site:** https://jonnydanilov.github.io/Personal-Website/
 
-## Sections
+## Design
 
-- **Hero** — name, tagline, and links to GitHub, LinkedIn, and email
-- **About** — background, education, and current role
-- **Projects** — cards with tech stack tags and repo/live-demo links
-- **Skills** — languages, tools, and frameworks
-- **Contact** — direct links plus a front-end-only contact form
+An editorial, sports-data-inspired system rather than a generic developer
+template: alternating navy and cream sections, orange/blue accents, and
+typography-led layout (Big Shoulders Display for headlines, Inter for body
+copy). Projects are presented as case studies with role/data/stack/status
+metadata instead of generic cards.
 
-## Tech stack
+## Features
 
-HTML5, CSS3 (custom properties, Grid/Flexbox), vanilla JavaScript (IntersectionObserver for scroll animations, no libraries or dependencies).
+- Responsive masthead navigation with active-section highlighting
+- Asymmetric hero with direct links to GitHub, LinkedIn, and email
+- About / Education section and a résumé-style Experience timeline
+- Project case studies, including large production screenshots with an
+  accessible, keyboard-operable image lightbox
+- A structured, four-column technical Skills inventory
+- Direct contact links (email, LinkedIn, GitHub) — no contact form
+- Semantic HTML, visible focus states, descriptive alt text, and support for
+  `prefers-reduced-motion`
 
-## Running locally
+## Tech Stack
+
+- HTML5
+- CSS3 (custom properties, Grid/Flexbox)
+- Vanilla JavaScript (no libraries or dependencies)
+- GitHub Pages (hosting)
+
+No frameworks, no build tools.
+
+## AI-Assisted Development
+
+I use Claude Code as an implementation and iteration tool for parts of this
+site's code. I direct the design and content, review and integrate every
+change, test the result, and handle deployment myself.
+
+## Running Locally
 
 No build step — just serve the folder.
 
@@ -29,18 +54,20 @@ python3 -m http.server 8000
 # then visit http://localhost:8000
 ```
 
-## Project structure
+## Project Structure
 
 ```
 index.html    — page markup, organized by section
-styles.css    — all styling (theme variables, layout, animations, responsive rules)
-script.js     — all interactivity (nav, scroll effects, contact form)
+styles.css    — all styling (theme variables, layout, responsive rules)
+script.js     — all interactivity (nav, scroll-spy, image lightbox)
 CLAUDE.md     — working guidelines for AI-assisted changes to this repo
+assets/       — project screenshots
 ```
 
 ## Deployment
 
-Hosted on GitHub Pages, deployed from the `main` branch (`Settings → Pages → Source → main / root`).
+Hosted on GitHub Pages, deployed from the `main` branch (`Settings → Pages →
+Source → main / root`).
 
 ## Contact
 

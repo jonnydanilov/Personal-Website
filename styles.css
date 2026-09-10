@@ -299,13 +299,6 @@ button {
   color: var(--orange);
 }
 
-.about .btn-solid:hover,
-.contact .btn-solid:hover {
-  color: var(--navy);
-  border-color: var(--navy);
-  background: transparent;
-}
-
 .btn-outline {
   border-color: var(--line-on-dark);
   color: var(--cream);
@@ -818,6 +811,38 @@ button {
   color: var(--muted-on-light);
 }
 
+.minor-project-meta + .minor-project-meta {
+  margin-top: 4px;
+}
+
+.minor-project-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.minor-project-link {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--blue);
+  border-bottom: 1.5px solid var(--blue);
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.minor-project-link:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
+.minor-project-note {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--muted-on-light);
+}
+
 /* Dashed top rule + muted title signal "not production-ready" */
 .minor-project-progress {
   border-top-style: dashed;
@@ -881,97 +906,55 @@ button {
 
 /* =========================================================================
    CONTACT
+   Single-column layout: a short intro paragraph followed by a full-width
+   "directory" list of direct contact methods (no contact form — the direct
+   email/LinkedIn/GitHub links already cover that need).
    ========================================================================= */
 .contact {
   padding: 108px 0;
 }
 
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 60px;
-}
-
 .contact-copy {
   color: var(--muted-on-light);
-  max-width: 440px;
-  margin: 20px 0 32px;
-  font-size: 1.02rem;
+  max-width: 560px;
+  margin: 20px 0 44px;
+  font-size: 1.05rem;
 }
 
-.contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.contact-directory {
+  border-top: 3px solid var(--navy);
 }
 
-.contact-link {
+.contact-entry {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line-on-light);
+}
+
+.contact-entry-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--blue);
+}
+
+.contact-entry-value {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: var(--muted-on-light);
-  transition: color var(--transition), transform var(--transition);
+  font-size: 1.05rem;
+  color: var(--navy);
   width: fit-content;
+  transition: color var(--transition), transform var(--transition);
 }
 
-.contact-link:hover {
+.contact-entry-value:hover {
   color: var(--blue);
   transform: translateX(4px);
-}
-
-/* Editorial form: thin bottom-border fields, no boxed card */
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  border-top: 3px solid var(--navy);
-  padding-top: 32px;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-field label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--muted-on-light);
-}
-
-.form-field input,
-.form-field textarea {
-  background: transparent;
-  border: none;
-  border-bottom: 1.5px solid var(--line-on-light);
-  border-radius: 0;
-  padding: 10px 2px;
-  color: var(--navy);
-  font-family: var(--font-body);
-  font-size: 0.98rem;
-  transition: border-color var(--transition);
-  resize: vertical;
-}
-
-.form-field input:focus,
-.form-field textarea:focus {
-  outline: none;
-  border-color: var(--blue);
-}
-
-.form-submit {
-  align-self: flex-start;
-  margin-top: 6px;
-}
-
-.form-note {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--blue);
-  min-height: 1.2em;
 }
 
 /* =========================================================================
@@ -1159,8 +1142,9 @@ button {
     max-width: 220px;
   }
 
-  .contact-grid {
+  .contact-entry {
     grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
 

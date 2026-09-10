@@ -93,35 +93,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 /* =========================================================================
-   CONTACT FORM (FRONT-END ONLY)
-   There is no backend here, so instead of sending data anywhere, submitting
-   the form opens the visitor's email client with a pre-filled message
-   addressed to Jonathan (via a "mailto:" link built from the form fields).
-   ========================================================================= */
-const contactForm = document.getElementById("contact-form");
-const formNote = document.getElementById("form-note");
-
-contactForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const message = document.getElementById("message").value.trim();
-
-  if (!name || !email || !message) {
-    formNote.textContent = "Please fill out every field before sending.";
-    return;
-  }
-
-  const subject = encodeURIComponent(`Portfolio contact from ${name}`);
-  const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-  window.location.href = `mailto:jonny.danilov14@gmail.com?subject=${subject}&body=${body}`;
-
-  formNote.textContent = "Opening your email client to send this message…";
-  contactForm.reset();
-});
-
-/* =========================================================================
    FOOTER YEAR
    Keeps the copyright year in the footer correct without editing it by hand.
    ========================================================================= */
