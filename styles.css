@@ -1118,6 +1118,21 @@ button {
   color: var(--orange);
 }
 
+/* Resume viewer: same overlay as the lightbox, sized for a readable document
+   instead of an image, with the PDF filling the dialog via an iframe. */
+.resume-dialog {
+  width: min(90vw, 820px);
+  height: 90vh;
+  max-width: min(90vw, 820px);
+}
+
+.resume-dialog #resume-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: var(--cream);
+}
+
 /* =========================================================================
    RESPONSIVE — tablet & mobile
    Typography scale, layout, and spacing are re-evaluated for small screens

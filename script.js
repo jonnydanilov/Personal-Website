@@ -93,6 +93,50 @@ document.addEventListener("keydown", (event) => {
 });
 
 /* =========================================================================
+   RESUME VIEWER
+   "View Resume" / "Resume" links open the PDF in an in-page overlay instead
+   of downloading it or opening a new tab. Same open/close/focus pattern as
+   the screenshot lightbox above. Falls back to a normal link (new tab) if
+   the resume link is opened in a new tab or middle-clicked.
+   ========================================================================= */
+const resumeViewer = document.getElementById("resume-viewer");
+const resumeFrame = document.getElementById("resume-frame");
+const resumeClose = document.getElementById("resume-close");
+let lastFocusedResumeTrigger = null;
+
+function openResumeViewer(trigger) {
+  lastFocusedResumeTrigger = trigger;
+  resumeFrame.src = trigger.getAttribute("href");
+  resumeViewer.hidden = false;
+  document.body.style.overflow = "hidden";
+  resumeClose.focus();
+}
+
+function closeResumeViewer() {
+  resumeViewer.hidden = true;
+  resumeFrame.src = "";
+  document.body.style.overflow = "";
+  if (lastFocusedResumeTrigger) lastFocusedResumeTrigger.focus();
+}
+
+document.querySelectorAll("[data-resume-open]").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    closeMobileNav();
+    openResumeViewer(link);
+  });
+});
+
+resumeClose.addEventListener("click", closeResumeViewer);
+document.querySelectorAll("[data-resume-close]").forEach((el) => {
+  el.addEventListener("click", closeResumeViewer);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !resumeViewer.hidden) closeResumeViewer();
+});
+
+/* =========================================================================
    FOOTER YEAR
    Keeps the copyright year in the footer correct without editing it by hand.
    ========================================================================= */
