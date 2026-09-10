@@ -1,10 +1,14 @@
 # Jonathan Danilov — Personal Portfolio
 
+## Overview
+
 My personal Data Science / technical portfolio: background, experience, and
 project case studies, built as a static site with plain HTML, CSS, and
 vanilla JavaScript — no frameworks, no build tools.
 
-**Live site:** https://jonnydanilov.github.io/Personal-Website/
+## Live Site
+
+https://jonnydanilov.github.io/Personal-Website/
 
 ## Design
 
@@ -22,7 +26,7 @@ metadata instead of generic cards.
 - Project case studies, including large production screenshots with an
   accessible, keyboard-operable image lightbox
 - A structured, four-column technical Skills inventory
-- Direct contact links (email, LinkedIn, GitHub) — no contact form
+- Direct contact links (email, LinkedIn, GitHub)
 - Semantic HTML, visible focus states, descriptive alt text, and support for
   `prefers-reduced-motion`
 
@@ -35,11 +39,12 @@ metadata instead of generic cards.
 
 No frameworks, no build tools.
 
-## AI-Assisted Development
+## Development Approach
 
-I use Claude Code as an implementation and iteration tool for parts of this
-site's code. I direct the design and content, review and integrate every
-change, test the result, and handle deployment myself.
+I use ChatGPT and Claude Code as implementation and iteration tools for parts
+of this site's code. I direct the design and content, define architecture and
+layout decisions, integrate and debug every change, test the result, and
+handle deployment myself.
 
 ## Running Locally
 
