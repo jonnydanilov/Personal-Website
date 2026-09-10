@@ -124,26 +124,9 @@ button {
    Used above About / Experience / Projects / Skills / Contact.
    ------------------------------------------------------------------------- */
 .section-head {
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
   padding-bottom: 20px;
   margin-bottom: 56px;
   border-bottom: 3px solid var(--orange);
-}
-
-.section-num {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--blue);
-}
-
-.hero .section-num,
-.experience .section-num,
-.skills .section-num,
-.site-footer .section-num {
-  color: var(--blue-bright);
 }
 
 .section-title {
@@ -602,18 +585,7 @@ button {
 }
 
 .case-head {
-  display: flex;
-  align-items: baseline;
-  gap: 22px;
   margin-bottom: 28px;
-  flex-wrap: wrap;
-}
-
-.case-number {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  color: var(--blue);
-  font-weight: 600;
 }
 
 .case-heading {
@@ -821,17 +793,8 @@ button {
 }
 
 .minor-project {
-  display: grid;
-  grid-template-columns: 44px 1fr;
-  gap: 20px;
   padding: 22px 0;
   border-top: 1px solid var(--line-on-light-soft);
-}
-
-.minor-project-number {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--blue);
 }
 
 .minor-project-title {
